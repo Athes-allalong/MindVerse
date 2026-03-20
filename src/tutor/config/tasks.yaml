@@ -1,0 +1,81 @@
+tutor_task:
+  description: >
+    Create a comprehensive tutorial on {topic} for students, organized by difficulty levels.
+    
+    CRITICAL WORKFLOW - YOU MUST FOLLOW THIS EXACTLY:
+    
+    START WITH LEVEL 1 (Beginner):
+       - Generate 3-5 lessons for Level 1 (Beginner level).
+       - Each lesson should cover fundamental concepts appropriate for beginners.
+       - For EACH lesson in Level 1:
+         * Create a clear lesson_name that reflects the beginner-level content.
+         * In lesson_content, provide detailed explanations for each topic (topic_1, topic_2, topic_3).
+         * Each topic explanation MUST be detailed (at least 2-3 sentences) covering:
+           - What the concept is
+           - Why it's important
+           - How it relates to the overall topic
+         * Include a comprehensive introduction and conclusion for each lesson.
+       * IMMEDIATELY use the `Write To Database Tool` to save each lesson as you generate it.
+       * Set lesson_level to "Beginner" for all Level 1 lessons.
+      
+      Continue the same for level 2(Intermediate) and 3(Advanced).
+    
+    IMPORTANT REMINDERS:
+    - You MUST complete Level 1 entirely (all lessons generated and saved) before starting Level 2.
+    - You MUST complete Level 2 entirely (all lessons generated and saved) before starting Level 3.
+    - Each topic explanation must be DETAILED, not brief. Aim for 2-3 sentences minimum per topic.
+    - Save each lesson immediately after generating it using the Write To Database Tool.
+    - The topic argument for Write To Database Tool should always be: {topic}
+    - Ensure logical progression: each level should build upon the previous one.
+    
+  expected_output: >
+    A structured progression through three difficulty levels (Beginner, Intermediate, Advanced) for {topic}.
+    For EACH lesson generated, you MUST use the `Write To Database Tool` to save it immediately.
+    The `topic` argument for the `Write To Database Tool` should be: {topic}.
+    The `lesson` argument for the `Write To Database Tool` MUST be a valid JSON string, representing a Lesson object with the following structure:
+    {
+      "lesson_name": "string (descriptive name for the lesson)",
+      "lesson_content": {
+        "introduction": "string (comprehensive introduction to the lesson)",
+        "topic_1": "string (DETAILED explanation - at least 2-3 sentences covering what, why, and how it relates)",
+        "topic_2": "string (DETAILED explanation - at least 2-3 sentences covering what, why, and how it relates)",
+        "topic_3": "string (DETAILED explanation - at least 2-3 sentences covering what, why, and how it relates)",
+        "conclusion": "string (comprehensive conclusion summarizing the lesson)"
+      },
+      "lesson_level": "string (must be exactly 'Beginner', 'Intermediate', or 'Advanced')"
+    }
+    Remember: Each topic explanation must be DETAILED, not brief. Provide comprehensive explanations that help students truly understand the concepts.
+  agent: teacher
+
+game_generation_task:
+  description: >
+    Pick a game idea from the following list at random:Puzzle blocks, Fill in the blanks, Drag and Drop tiles, based on the rules specified in agents.yaml
+    First, use the `Read Database Tool` to retrieve the course content for the given lesson_level.
+    Then, generate the game content based on the rules.
+    The output must be in the format:
+     -Drag and Drop tiles:
+      {
+      "question": "string",
+      "tiles": ["string", "string", "string"],
+      "answers": ["string", "string", "string"]
+      }
+     -Fill in the blanks:
+      {
+      "sentence": "string",
+      "blanks": ["string", "string"],
+      "answers": ["string", "string"]
+      }
+     -Puzzle blocks:
+      {
+      "blocks": ["string", "string", "string"],
+      "correct_order": ["string", "string", "string"]
+      }
+    agent:game_generator
+    context:>"answers" for Drag and Drop tiles and Fill in the blanks, "correct_order" for Puzzle blocks.
+
+
+evaluator_task:
+ description:>Evaluate the user's answer based on the game_generator's output of correct 
+ answers. 
+ Generate a short summary on why the answer is correct or wrong. 
+ If answer is correct, return boolean True, else return False.

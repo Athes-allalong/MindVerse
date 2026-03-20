@@ -1,0 +1,326 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+/* ---------------------
+   GLOBAL RESET
+---------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #0b0012, #200029);
+  color: #fff;
+
+  /* SCROLL FIX – allow scrolling across the entire app */
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+/* ---------------------
+   PAGE LAYOUTS
+---------------------- */
+
+/* Every page container */
+.page {
+  width: 100%;
+  min-height: 100vh; /* allow page to extend */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* important for scrolling */
+  align-items: center;
+  position: relative;
+
+  /* SCROLL FIX */
+  overflow: visible !important;
+  z-index: 10;
+}
+
+/* Landing page only: stays centered */
+.full-screen {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* landing ONLY */
+}
+
+/* Scroll-enabled pages */
+.scroll-page {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding-bottom: 200px; /* ensures bottom content is visible */
+}
+
+/* ---------------------
+   BACKGROUND ORBS
+---------------------- */
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.3;
+  animation: float 10s infinite alternate ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb1 {
+  width: 450px;
+  height: 450px;
+  background: #ff0077;
+  top: 10%;
+  left: 10%;
+}
+
+.orb2 {
+  width: 550px;
+  height: 550px;
+  background: #9b00ff;
+  bottom: 10%;
+  right: 10%;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-40px) scale(1.05);
+  }
+}
+
+/* ---------------------
+   TITLES
+---------------------- */
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #f63ebf;
+  text-shadow: 0 0 20px rgba(255, 0, 170, 0.6);
+  margin-bottom: 1rem;
+  z-index: 2;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  text-align: center;
+  z-index: 2;
+}
+
+/* ---------------------
+   FORM
+---------------------- */
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 500px;
+  z-index: 2;
+}
+
+input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 0, 170, 0.25);
+  border-radius: 0.7rem;
+  margin-bottom: 1.5rem;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+input:focus {
+  border-color: #ff66cc;
+  box-shadow: 0 0 15px rgba(255, 0, 170, 0.4);
+}
+
+/* ---------------------
+   BUTTONS
+---------------------- */
+
+button,
+.game-btn {
+  width: auto;
+  background: linear-gradient(135deg, #ff0080, #ff66cc);
+  border-radius: 0.8rem;
+  color: white;
+  font-size: 1.2rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 0 25px rgba(255, 0, 170, 0.3);
+}
+
+button:hover,
+.game-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(255, 0, 170, 0.6);
+}
+
+button:active,
+.game-btn:active {
+  transform: scale(0.97);
+}
+
+.game-btn.locked {
+  background: rgba(255, 255, 255, 0.08);
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* ---------------------
+   MESSAGES
+---------------------- */
+
+.message {
+  color: #ff99dd;
+  text-align: center;
+  margin-top: 1.5rem;
+  font-weight: 500;
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+/* ---------------------
+   LESSON CARD
+---------------------- */
+
+.lesson-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 102, 204, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 90%;
+  max-width: 900px;
+}
+
+.lesson-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ff66cc;
+  margin-bottom: 1rem;
+}
+
+.lesson-text {
+  line-height: 1.7;
+  color: #eee;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+  border-left: 4px solid rgba(255, 102, 204, 0.3);
+  border-radius: 0.5rem;
+}
+
+/* ---------------------
+   LEVEL GRID
+---------------------- */
+
+.levels-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.level-card {
+  width: 220px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid rgba(255, 0, 170, 0.12);
+  transition: 0.3s ease;
+}
+
+.level-card:hover {
+  transform: scale(1.05);
+}
+
+/* ---------------------
+   TRAIN TRANSITION
+---------------------- */
+
+.transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,0,20,0.95), rgba(0,0,0,0.98));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+.train {
+  display: flex;
+  gap: 12px;
+  font-size: 48px;
+  animation: trainMove 1.6s linear forwards;
+}
+
+@keyframes trainMove {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(140%);
+    opacity: 1;
+  }
+}
+
+.transition-text {
+  margin-top: 20px;
+  color: #ff99dd;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* ---------------------
+   RESPONSIVE
+---------------------- */
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .level-card {
+    width: 46%;
+  }
+}
+
+
